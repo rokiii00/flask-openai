@@ -7,6 +7,7 @@ import sys
 sys.dont_write_bytecode = True
 from flask import render_template, request, Flask, Blueprint
 from .transcribe_form import TranscribemeForm
+from openai import OpenAI
 
 transcribe_blueprint = Blueprint('transcribeme', __name__)
 
@@ -21,9 +22,12 @@ def transcribeme():
         # The following response code is an (older) from example on: 
         # https://platform.openai.com/docs/guides/speech-to-text
         audio_file= open(form.prompt.data, "rb")
-        transcript = openai.Audio.transcribe("whisper-1", audio_file)
-        #You add the parameters to render_template
-        return render_template()
+        client = OpenAI()
+        transcript = client.audio.transcriptions.create(
+          model="whisper-1",
+          file=audio_file
+        )
+        return render_template('transcribeme.html', transcribe_me_prompt=form.prompt.data,transcribe_me_response=transcript.text,success=True)
       
   elif request.method == 'GET':
       return render_template('transcribeme.html', form=form)
