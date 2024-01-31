@@ -58,5 +58,5 @@ def contact():
 app.register_blueprint(about_blueprint) 
 app.register_blueprint(ask_blueprint) 
 app.register_blueprint(draw_blueprint) 
-#app.register_blueprint(transcribe_blueprint)
+app.register_blueprint(transcribe_blueprint)
   

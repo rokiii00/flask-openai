@@ -11,9 +11,9 @@ from openai import OpenAI
 
 transcribe_blueprint = Blueprint('transcribeme', __name__)
 
-# You add the right decorators and routes here
+@app.route('/transcribeme',methods=['GET', 'POST'])
 def transcribeme():
-  # You add the call to the form
+  form = TranscribemeForm(request.form)
   
   if request.method == 'POST':
       if form.validate() == False:

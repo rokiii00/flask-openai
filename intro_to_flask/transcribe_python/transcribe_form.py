@@ -7,6 +7,5 @@ from flask_wtf import Form
 from wtforms import TextAreaField, SubmitField, validators, ValidationError
 
 class TranscribemeForm(Form):
-    #You create the form
-    prompt = "you change this"
-    submit = "you change this"
+    prompt = TextAreaField("What do you want to transcribe?",  [validators.InputRequired("Please enter a prompt.")])
+    submit = SubmitField("Send") 

@@ -31,9 +31,10 @@ header h1.logo:hover {
 
 /* Center the body content */
 
-.container {
-  width: 940px;
+.container-flex {
+  width: 1200px;
   margin: 0 auto;
+  display: flex;
 }
 
 div.jumbo {
