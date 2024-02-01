@@ -1,5 +1,6 @@
 import os
 import openai
+from openai import OpenAI
 import re #regular expressions module
 from markupsafe import escape #protects projects against injection attacks
 from intro_to_flask import app
@@ -20,13 +21,17 @@ def drawme():
         return render_template('drawme.html', form=form)
       else:
         # The following response code adapted from example on: 
-        # https://platform.openai.com/docs/guides/images/usage?context=node 
-        response = openai.Image.create(
+        # https://platform.openai.com/docs/api-reference/images
+        client = OpenAI()
+
+        response = client.images.generate(
+          model="dall-e-3",
           prompt=form.prompt.data,
+          quality="standard",
+          size="1024x1024",
           n=1,
-          size="1024x1024"
         )
-        display_image_url = response['data'][0]['url']
+        display_image_url = response.data[0].url
         return render_template('drawme.html', draw_me_prompt=form.prompt.data,draw_me_response=display_image_url,success=True)
       
   elif request.method == 'GET':

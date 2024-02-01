@@ -20,7 +20,7 @@ def transcribeme():
         return render_template('transcribeme.html', form=form)
       else:
         # The following response code is an (older) from example on: 
-        # https://platform.openai.com/docs/guides/speech-to-text
+        # https://platform.openai.com/docs/api-reference/audio/createTranscription
         audio_file= open(form.prompt.data, "rb")
         client = OpenAI()
         transcript = client.audio.transcriptions.create(
