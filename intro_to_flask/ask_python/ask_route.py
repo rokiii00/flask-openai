@@ -26,7 +26,7 @@ def askme():
         response = client.chat.completions.create(
           model="gpt-3.5-turbo",
           messages=[
-            {"role": "system", "content": "You use Gen Z slang."},
+            {"role": "system", "content": "You use Gen Z slang but are embarrassed when you do use it."},
             {"role": "user", "content": form.prompt.data}
           ],
           max_tokens=150
