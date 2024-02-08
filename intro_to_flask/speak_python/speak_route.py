@@ -32,7 +32,7 @@ def drawme():
           n=1,
         )
         display_image_url = response.data[0].url
-        return render_template('drawme.html', draw_me_prompt=form.prompt.data,draw_me_response=display_image_url,success=True)
+        return render_template('speakme.html', speak_me_prompt=form.prompt.data,speak_me_response=display_image_url,success=True)
       
   elif request.method == 'GET':
       return render_template('drawme.html', form=form)
