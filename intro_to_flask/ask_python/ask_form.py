@@ -7,5 +7,6 @@ from flask_wtf import Form
 from wtforms import TextAreaField, SubmitField, validators, ValidationError
 
 class AskmeForm(Form):
-    prompt = TextAreaField("Your Question",  [validators.InputRequired("Please enter a question.")])
+    userprompt = TextAreaField("Your Question",  [validators.InputRequired("Please enter a question.")])
+    systemprompt= TextAreaField("System Personality",  [validators.InputRequired("Please enter a description.")])
     submit = SubmitField("Send") 

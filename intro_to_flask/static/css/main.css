@@ -109,8 +109,9 @@ form input#subject {
 }
 
 form textarea#message,
-form textarea#prompt {
-  width: 500px;
+form textarea#userprompt,
+form textarea#systemprompt {
+  width: 800px;
   height: 100px;
   background-color: #fafafa;
   -webkit-border-radius: 3px;  
