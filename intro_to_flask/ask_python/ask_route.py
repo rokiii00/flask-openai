@@ -29,7 +29,7 @@ def askme():
             {"role": "system", "content": form.systemprompt.data},
             {"role": "user", "content": form.userprompt.data}
           ],
-          max_tokens=150
+          max_tokens=None
         )
 
         display_text = response.choices[0].message.content

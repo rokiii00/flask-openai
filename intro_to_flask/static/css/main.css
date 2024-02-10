@@ -109,6 +109,7 @@ form input#subject {
 }
 
 form textarea#message,
+form textarea#prompt,
 form textarea#userprompt,
 form textarea#systemprompt {
   width: 800px;
