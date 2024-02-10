@@ -29,7 +29,7 @@ def askme():
             {"role": "system", "content": "You use Gen Z slang but are embarrassed when you do use it."},
             {"role": "user", "content": form.prompt.data}
           ],
-          max_tokens=150
+          max_tokens=None
         )
 
         display_text = response.choices[0].message.content
