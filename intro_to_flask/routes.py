@@ -13,7 +13,7 @@ from .draw_python.draw_route import draw_blueprint
 from .about_python.about_route import about_blueprint
 from .transcribe_python.transcribe_route import transcribe_blueprint
 from .speak_python.speak_route import speak_blueprint
-
+from .speak_python.speak_route import temp_blueprint
 
 #The mail_user_name and mail_app_password values are in the .env file
 #Google requires an App Password as of May, 2022: 
@@ -61,5 +61,5 @@ app.register_blueprint(ask_blueprint)
 app.register_blueprint(draw_blueprint) 
 app.register_blueprint(transcribe_blueprint)
 app.register_blueprint(speak_blueprint)
-  
+app.register_blueprint(temp_blueprint)  
   
