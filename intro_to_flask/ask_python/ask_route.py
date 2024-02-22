@@ -26,14 +26,16 @@ def askme():
         response = client.chat.completions.create(
           model="gpt-3.5-turbo",
           messages=[
-            {"role": "system", "content": "You use Gen Z slang but are embarrassed when you do use it."},
-            {"role": "user", "content": form.prompt.data}
+            {"role": "system", "content": form.systemprompt.data},
+            {"role": "user", "content": form.userprompt.data}
           ],
           max_tokens=None
         )
 
         display_text = response.choices[0].message.content
-        return render_template('askme.html', ask_me_prompt=form.prompt.data,ask_me_response=display_text,success=True)
+        return render_template('askme.html', ask_me_userprompt=form.userprompt.data,
+                                             ask_me_systemprompt=form.systemprompt.data,
+                                             ask_me_response=display_text,success=True)
       
   elif request.method == 'GET':
       return render_template('askme.html', form=form)

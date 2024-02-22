@@ -4,11 +4,12 @@
 <h2>Ask me</h2>
 
 {% if success %}
-<p> <b> You asked me:  </b> "{{ask_me_prompt}}".  </p>
+<p> <b> You asked me:  </b> "{{ask_me_userprompt}}".  </p>
+<p> <b> My system personality is:  </b> "{{ask_me_systemprompt}}".  </p>
 <p> <b> Here's your answer:  </b> {{ask_me_response}}  </p>
 {% else %}  
-{% for prompt in form.prompt.errors %}
-<div class="flash">{{ prompt }}</div>
+{% for userprompt in form.userprompt.errors %}
+<div class="flash">{{ userprompt }}</div>
 {% endfor %}
 
 <form action="{{ url_for('askme') }}" method=post>
@@ -17,8 +18,10 @@ This form has no CSRF protection.  To add, see:
 https://flask-wtf.readthedocs.io/en/0.15.x/csrf/
 --> 
 
-{{ form.prompt.label }}
-{{ form.prompt }}
+{{ form.userprompt.label }}
+{{ form.userprompt }}
+{{ form.systemprompt.label }}
+{{ form.systemprompt }}
 
 {{ form.submit }}
 </form>
