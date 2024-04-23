@@ -21,13 +21,18 @@ def transcribeme():
       else:
         # The following response code is an (older) from example on: 
         # https://platform.openai.com/docs/api-reference/audio/createTranscription
-        audio_file= open(form.prompt.data, "rb")
-        client = OpenAI()
-        transcript = client.audio.transcriptions.create(
-          model="whisper-1",
-          file=audio_file
-        )
-        return render_template('transcribeme.html', transcribe_me_prompt=form.prompt.data,transcribe_me_response=transcript.text,success=True)
+        try:
+          audio_file= open(form.prompt.data, "rb")
+          client = OpenAI()
+          transcript = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=audio_file
+          )
+          return render_template('transcribeme.html', transcribe_me_prompt=form.prompt.data,transcribe_me_response=transcript.text,success=True)
+        except FileNotFoundError as e:
+          error_msg= "\"" + form.prompt.data + "\" ------ This is not a path to an audio file."
+          return render_template('transcribeme.html', transcribe_me_prompt=form.prompt.data,transcribe_me_response=error_msg,success=True)
+
       
   elif request.method == 'GET':
-      return render_template('transcribeme.html', form=form)
+      return render_template('transcribeme.html', form=form,  success=False)
