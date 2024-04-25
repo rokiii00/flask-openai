@@ -1,9 +1,17 @@
-from intro_to_flask import app
-from flask_mail import Message, Mail
 import os
-from models import db, User
-from forms import ContactForm, SignupForm, SigninForm
-from flask import render_template, request, flash, session, url_for, redirect
+import openai
+import re #regular expressions module
+from markupsafe import escape #protects projects against injection attacks
+from intro_to_flask import app
+import sys 
+sys.dont_write_bytecode = True
+from flask import render_template, request, Flask,Blueprint
+from flask_mail import Message, Mail
+from .contact_form import ContactForm
+from .ask_python.ask_route import ask_blueprint
+from .draw_python.draw_route import draw_blueprint
+from .about_python.about_route import about_blueprint
+from .transcribe_python.transcribe_route import transcribe_blueprint
 
 
 #The mail_user_name and mail_app_password values are in the .env file
@@ -12,7 +20,7 @@ from flask import render_template, request, flash, session, url_for, redirect
 
 mail_user_name = os.getenv('GMAIL_USER_NAME')
 mail_app_password = os.getenv('GMAIL_APP_PASSWORD')
-mail_example_recipient = os.getenv('GMAIL_EXAMPLE_RECIPIENT')
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -27,10 +35,6 @@ mail = Mail(app)
 def home():
   return render_template('home.html')
 
-@app.route('/about')
-def about():
-  return render_template('about.html')
-
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
   # Flask 2.2.2 requires a parameter to a form object: request.form or other
@@ -39,14 +43,10 @@ def contact():
 
   if request.method == 'POST':
       if form.validate() == False:
-        # This will print out any errors the form has to the user.  Used for debugging.
-        flash(form.errors)
-        flash('All fields are required.')
         return render_template('contact.html', form=form)
       else:
-        msg = Message(form.subject.data, sender=mail_user_name, recipients=[mail_example_recipient])
-        msg.body = """
-        From: %s <%s> %s %s
+        msg = Message(form.subject.data, sender=mail_user_name, recipients=[form.email.data])
+        msg.body = """From: %s <%s> \n%s \n%s
         """ % (form.name.data, form.email.data, form.subject.data, form.message.data)
         mail.send(msg)
 
@@ -54,6 +54,12 @@ def contact():
 
   elif request.method == 'GET':
       return render_template('contact.html', form=form)
+       
+app.register_blueprint(about_blueprint) 
+app.register_blueprint(ask_blueprint) 
+app.register_blueprint(draw_blueprint) 
+app.register_blueprint(transcribe_blueprint)
+  
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
