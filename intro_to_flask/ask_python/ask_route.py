@@ -9,6 +9,7 @@ import sys
 sys.dont_write_bytecode = True
 from flask import render_template, request, Flask, Blueprint
 from .ask_form import AskmeForm
+from ..utilities.form_parsing  import parse_SelectField_choices
 
 ask_blueprint = Blueprint('askme', __name__)
 
@@ -21,33 +22,16 @@ def askme():
       if form.validate() == False:
         return render_template('askme.html', form=form)
       else:
-        # The following response code adapted from example on: 
-        # https://platform.openai.com/docs/api-reference/chat/create
+
         client = OpenAI()
+        
         # Find the selected basic_systemprompt
-        for prompt_key, prompt_value in form.basic_systemprompt.choices:
-          if prompt_key == form.basic_systemprompt.data:
-            basic_systemprompt = prompt_value
-            break
-        # Test if basic_systemprompt has been assigned
-        try:
-          test = basic_systemprompt
-        except:
-          basic_systemprompt = "Professional"
-        # Concatentate the basic_systemprompt and the additonal_systemprompt
+        basic_systemprompt = parse_SelectField_choices(form.basic_systemprompt,"Professional")
         system_personality = basic_systemprompt + ". " + form.additional_systemprompt.data
         
         # Find the selected gpt model
-        for model_key, model_value in form.gpt_model.choices:
-          if model_key == form.gpt_model.data:
-            gpt_model = model_value
-            break
-        # Test if gpt_model has been assigned
-        try:
-          test = gpt_model
-        except:
-          gpt_model = "gpt-4-turbo"
-        
+        gpt_model = parse_SelectField_choices(form.gpt_model,"gpt-4-turbo")
+
         # Get the response to the prompts
         response = client.chat.completions.create(
           model=gpt_model,
