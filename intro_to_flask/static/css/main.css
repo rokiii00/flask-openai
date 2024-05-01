@@ -109,8 +109,10 @@ form input#subject {
 }
 
 form textarea#message,
-form textarea#prompt {
-  width: 500px;
+form textarea#prompt,
+form textarea#userprompt,
+form textarea#additional_systemprompt {
+  width: 800px;
   height: 100px;
   background-color: #fafafa;
   -webkit-border-radius: 3px;  
@@ -122,6 +124,19 @@ form textarea#prompt {
   font-size: 1.1em;
 }
 
+form select#basic_systemprompt {
+  width: 1500px;
+  height: 50px;
+  background-color: #fafafa;
+  font-size: 1.1em;
+}
+
+form select#gpt_model {
+  width: 300px;
+  height: 50px;
+  background-color: #fafafa;
+  font-size: 1.1em;
+}
 
 form input#num_tokensprompt {
   width: 100px;
@@ -132,12 +147,15 @@ form input#num_tokensprompt {
 
 form input#submit {
   display: block;
+  width: 100px;
+  height: 50px;
   -webkit-border-radius: 3px; 
      -moz-border-radius: 3px;
           border-radius: 3px;
   border:1px solid #d8d8d8;
   padding: 10px; 
   font-weight:bold; 
+  font-size: 1em;
   text-align: center; 
   color: #000000; 
   background-color: #f4f4f4;
