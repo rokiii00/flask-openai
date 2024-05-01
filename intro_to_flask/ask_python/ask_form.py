@@ -9,5 +9,5 @@ from wtforms.validators import DataRequired, NumberRange
 class AskmeForm(Form):
     userprompt = TextAreaField("Your Question",  validators=[DataRequired()])
     systemprompt= TextAreaField("System Personality", validators=[DataRequired()])
-    num_tokensprompt= IntegerField("Max number of response tokens", validators=[DataRequired()])
+    num_tokensprompt= IntegerField("Max number of response tokens", validators=[DataRequired()],default= 150)
     submit = SubmitField("Send") 
