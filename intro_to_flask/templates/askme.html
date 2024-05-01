@@ -6,6 +6,11 @@
     {% if success %}
         <p> <b> You asked me:  </b> "{{ask_me_prompt}}".  </p>
         <p> <b> Here's your answer:  </b> {{ask_me_response}}  </p>
+
+        <p> <b> Your answer as audio:  </b> </p>
+        <audio controls>
+            <source src="{{ ask_me_audio }}" type="audio/mpeg">
+        </audio>
     {% else %}  
         {% for prompt in form.userprompt.errors %}
         <div class="flash">{{ prompt }}</div>
