@@ -10,4 +10,6 @@ venv/
 
 .project
 
+*.mp3
+
 intro_to_flask/temp/

@@ -1,4 +1,4 @@
-#!/usr/bin/env python -B
+# !/usr/bin/env python -B
 # Instructions for running and debugging this python file in VSCode
 # The program assumes that you have python3 and pip3 installed on your machine.
 # In the VSCode terminal window type the following:
