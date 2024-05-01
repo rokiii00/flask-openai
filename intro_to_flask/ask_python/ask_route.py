@@ -66,7 +66,7 @@ def askme():
         speech_file_path = os.path.join("intro_to_flask/temp/",speech_file_name)
 
         display_text = response.choices[0].message.content
-        return render_template('askme.html', ask_me_prompt=form.prompt.data,ask_me_response=display_text,success=True)
+        return render_template('askme.html', ask_me_prompt=form.userprompt.data,ask_me_response=display_text,success=True)
       
   elif request.method == 'GET':
       return render_template('askme.html', form=form)
