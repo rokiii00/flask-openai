@@ -17,8 +17,12 @@ This form has no CSRF protection.  To add, see:
 https://flask-wtf.readthedocs.io/en/0.15.x/csrf/
 --> 
 
-{{ form.prompt.label }}
-{{ form.prompt }}
+{{ form.userprompt.label }}
+{{ form.userprompt }}
+{{ form.systemprompt.label }}
+{{ form.systemprompt }}
+{{ form.num_tokensprompt.label }}
+{{ form.num_tokensprompt }}
 
 {{ form.submit }}
 </form>

@@ -24,12 +24,12 @@ def askme():
         # https://platform.openai.com/docs/api-reference/chat/create
         client = OpenAI()
         response = client.chat.completions.create(
-          model="gpt-3.5-turbo",
+          model="gpt-4-turbo",
           messages=[
             {"role": "system", "content": "You use Gen Z slang but are embarrassed when you do use it."},
             {"role": "user", "content": form.prompt.data}
           ],
-          max_tokens=150
+          max_tokens=form.num_tokensprompt.data
         )
 
         display_text = response.choices[0].message.content

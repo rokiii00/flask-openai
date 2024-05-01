@@ -122,6 +122,14 @@ form textarea#prompt {
   font-size: 1.1em;
 }
 
+
+form input#num_tokensprompt {
+  width: 100px;
+  height: 50px;
+  background-color: #fafafa;
+  font-size: 1.1em;
+}
+
 form input#submit {
   display: block;
   -webkit-border-radius: 3px; 
