@@ -11,7 +11,7 @@
 #   Use this link to create an "App Password" that will allow this program to use the 
 #   Gmail acccount to send the email to the email address to the account specified
 #   in the contact form.
-#
+# 
 # After the above and setting up the database, you should be able to run and debug this program
 import sys 
 sys.dont_write_bytecode = True
