@@ -8,6 +8,7 @@ import sys
 sys.dont_write_bytecode = True
 from flask import render_template, request, Flask, Blueprint
 from .draw_form import DrawmeForm
+from ..utilities.form_parsing  import parse_SelectField_choices
 
 draw_blueprint = Blueprint('drawme', __name__)
 
@@ -24,15 +25,17 @@ def drawme():
         # https://platform.openai.com/docs/api-reference/images
         client = OpenAI()
 
+
         response = client.images.generate(
           model="dall-e-3",
           prompt=form.prompt.data,
-          quality="standard",
-          size="1024x1024",
+          quality=form.image_quality.data,
+          size=form.image_size.data,
           n=1,
         )
         display_image_url = response.data[0].url
-        return render_template('drawme.html', draw_me_prompt=form.prompt.data,draw_me_response=display_image_url,success=True)
+        revised_prompt=response.data[0].revised_prompt
+        return render_template('drawme.html', draw_me_prompt=form.prompt.data,draw_me_response=display_image_url, draw_me_revised=revised_prompt,success=True)
       
   elif request.method == 'GET':
       return render_template('drawme.html', form=form)
